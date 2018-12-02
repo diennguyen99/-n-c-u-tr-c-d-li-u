@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuanLySinhVienUC));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtNamSinh = new System.Windows.Forms.TextBox();
@@ -63,6 +64,9 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -156,6 +160,7 @@
             this.cboLop.Name = "cboLop";
             this.cboLop.Size = new System.Drawing.Size(452, 34);
             this.cboLop.TabIndex = 14;
+            this.cboLop.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboLop_KeyPress);
             // 
             // label1
             // 
@@ -190,6 +195,7 @@
             this.cboNganh.Size = new System.Drawing.Size(452, 34);
             this.cboNganh.TabIndex = 12;
             this.cboNganh.SelectedIndexChanged += new System.EventHandler(this.cbNganh_SelectedIndexChanged);
+            this.cboNganh.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboNganh_KeyPress);
             // 
             // label2
             // 
@@ -306,14 +312,16 @@
             // 
             // btnLuu
             // 
-            this.btnLuu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnLuu.BackColor = System.Drawing.Color.White;
+            this.btnLuu.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLuu.BackgroundImage")));
+            this.btnLuu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLuu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLuu.FlatAppearance.BorderSize = 0;
             this.btnLuu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLuu.ForeColor = System.Drawing.Color.White;
-            this.btnLuu.Location = new System.Drawing.Point(743, 279);
+            this.btnLuu.ForeColor = System.Drawing.Color.Black;
+            this.btnLuu.Location = new System.Drawing.Point(722, 263);
             this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(130, 42);
+            this.btnLuu.Size = new System.Drawing.Size(130, 58);
             this.btnLuu.TabIndex = 2;
             this.btnLuu.Text = "Lưu";
             this.btnLuu.UseVisualStyleBackColor = false;
@@ -332,6 +340,7 @@
             this.btnClear.TabIndex = 3;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // lvThongTinSV
             // 
@@ -342,7 +351,10 @@
             this.columnHeader4,
             this.columnHeader5,
             this.columnHeader6,
-            this.columnHeader7});
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10});
             this.lvThongTinSV.FullRowSelect = true;
             this.lvThongTinSV.GridLines = true;
             this.lvThongTinSV.Location = new System.Drawing.Point(33, 341);
@@ -351,54 +363,67 @@
             this.lvThongTinSV.TabIndex = 4;
             this.lvThongTinSV.UseCompatibleStateImageBehavior = false;
             this.lvThongTinSV.View = System.Windows.Forms.View.Details;
-            this.lvThongTinSV.SelectedIndexChanged += new System.EventHandler(this.lvThongTinSV_SelectedIndexChanged);
+            this.lvThongTinSV.DoubleClick += new System.EventHandler(this.lvThongTinSV_DoubleClick);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "MSSV";
-            this.columnHeader1.Width = 80;
+            this.columnHeader1.Width = 75;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Tên sinh viên";
             this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 200;
+            this.columnHeader2.Width = 188;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Giới tính";
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 100;
+            this.columnHeader3.Width = 95;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Ngày sinh";
             this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 130;
+            this.columnHeader4.Width = 105;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "Lớp";
+            this.columnHeader5.Text = "Toán";
             this.columnHeader5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader5.Width = 200;
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Ngành";
+            this.columnHeader6.Text = "Lý";
             this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 210;
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "Điểm TB";
+            this.columnHeader7.Text = "Hóa";
             this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader7.Width = 150;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "TB";
+            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Lớp";
+            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader9.Width = 180;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Ngành";
+            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader10.Width = 190;
             // 
             // btnXoa
             // 
-            this.btnXoa.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnXoa.BackColor = System.Drawing.Color.Red;
             this.btnXoa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnXoa.Enabled = false;
             this.btnXoa.FlatAppearance.BorderSize = 0;
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoa.ForeColor = System.Drawing.Color.White;
@@ -414,6 +439,7 @@
             // 
             this.btnSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnSua.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSua.Enabled = false;
             this.btnSua.FlatAppearance.BorderSize = 0;
             this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSua.ForeColor = System.Drawing.Color.White;
@@ -423,6 +449,7 @@
             this.btnSua.TabIndex = 6;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // QuanLySinhVienUC
             // 
@@ -438,8 +465,6 @@
             this.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "QuanLySinhVienUC";
             this.Size = new System.Drawing.Size(1143, 645);
-            this.Load += new System.EventHandler(this.QuanLySinhVienUC_Load);
-            this.Click += new System.EventHandler(this.QuanLySinhVienUC_Click);
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -486,8 +511,11 @@
         private System.Windows.Forms.TextBox txtNamSinh;
         private System.Windows.Forms.TextBox txtThangSinh;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnSua;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
     }
 }

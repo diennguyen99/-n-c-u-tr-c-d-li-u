@@ -46,6 +46,7 @@ namespace Đồ_án_quản_lý_sinh_viên
             {
                 pTail.pNext = pNode;
                 pTail = pNode;
+                pTail.pNext = null;
             }
             count++;
         }
@@ -76,11 +77,25 @@ namespace Đồ_án_quản_lý_sinh_viên
             }
             else
             {
-                pPre = pDelete;
+                pPre.pNext = pDelete.pNext;
                 pDelete.pNext = null;
                 pDelete = null;
             }
+            
             count--;
+        }
+
+        public IEnumerable<T> Find(Predicate<T> match)
+        {
+            LinkedList<T>.Node item = pHead;
+            while (item!=null)
+            {
+                if (match(item.data))
+                {
+                    yield return item.data;
+                }
+                item = item.pNext;
+            }
         }
     }
 }

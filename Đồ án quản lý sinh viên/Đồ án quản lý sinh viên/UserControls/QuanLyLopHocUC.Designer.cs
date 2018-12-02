@@ -32,13 +32,14 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.trvNganh = new System.Windows.Forms.TreeView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.Xóa = new System.Windows.Forms.Button();
+            this.btnSua = new System.Windows.Forms.Button();
+            this.btnXoa = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lvThongTinSV = new System.Windows.Forms.ListView();
+            this.lvThongTinLop = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
             this.cboNganh = new System.Windows.Forms.ComboBox();
             this.txtTenLop = new System.Windows.Forms.TextBox();
@@ -107,13 +108,14 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.Xóa);
+            this.splitContainer2.Panel1.Controls.Add(this.btnSua);
+            this.splitContainer2.Panel1.Controls.Add(this.btnXoa);
             this.splitContainer2.Panel1.Controls.Add(this.groupBox2);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.White;
-            this.splitContainer2.Panel2.Controls.Add(this.button2);
+            this.splitContainer2.Panel2.Controls.Add(this.btnClear);
             this.splitContainer2.Panel2.Controls.Add(this.btnLuu);
             this.splitContainer2.Panel2.Controls.Add(this.cboNganh);
             this.splitContainer2.Panel2.Controls.Add(this.txtTenLop);
@@ -125,25 +127,43 @@
             this.splitContainer2.SplitterDistance = 359;
             this.splitContainer2.TabIndex = 0;
             // 
-            // Xóa
+            // btnSua
             // 
-            this.Xóa.BackColor = System.Drawing.Color.Red;
-            this.Xóa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Xóa.FlatAppearance.BorderSize = 0;
-            this.Xóa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Xóa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Xóa.ForeColor = System.Drawing.Color.White;
-            this.Xóa.Location = new System.Drawing.Point(652, 319);
-            this.Xóa.Name = "Xóa";
-            this.Xóa.Size = new System.Drawing.Size(131, 37);
-            this.Xóa.TabIndex = 0;
-            this.Xóa.Text = "Xóa";
-            this.Xóa.UseVisualStyleBackColor = false;
+            this.btnSua.BackColor = System.Drawing.Color.Teal;
+            this.btnSua.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSua.Enabled = false;
+            this.btnSua.FlatAppearance.BorderSize = 0;
+            this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSua.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSua.ForeColor = System.Drawing.Color.White;
+            this.btnSua.Location = new System.Drawing.Point(679, 310);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(131, 37);
+            this.btnSua.TabIndex = 1;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.BackColor = System.Drawing.Color.Red;
+            this.btnXoa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXoa.FlatAppearance.BorderSize = 0;
+            this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXoa.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoa.ForeColor = System.Drawing.Color.White;
+            this.btnXoa.Location = new System.Drawing.Point(530, 310);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(131, 37);
+            this.btnXoa.TabIndex = 0;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
-            this.groupBox2.Controls.Add(this.lvThongTinSV);
+            this.groupBox2.Controls.Add(this.lvThongTinLop);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
@@ -153,22 +173,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Thông tin lớp";
             // 
-            // lvThongTinSV
+            // lvThongTinLop
             // 
-            this.lvThongTinSV.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvThongTinLop.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.lvThongTinSV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvThongTinSV.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvThongTinSV.FullRowSelect = true;
-            this.lvThongTinSV.GridLines = true;
-            this.lvThongTinSV.Location = new System.Drawing.Point(3, 30);
-            this.lvThongTinSV.Name = "lvThongTinSV";
-            this.lvThongTinSV.Size = new System.Drawing.Size(818, 271);
-            this.lvThongTinSV.TabIndex = 0;
-            this.lvThongTinSV.UseCompatibleStateImageBehavior = false;
-            this.lvThongTinSV.View = System.Windows.Forms.View.Details;
+            this.lvThongTinLop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvThongTinLop.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvThongTinLop.FullRowSelect = true;
+            this.lvThongTinLop.GridLines = true;
+            this.lvThongTinLop.Location = new System.Drawing.Point(3, 30);
+            this.lvThongTinLop.Name = "lvThongTinLop";
+            this.lvThongTinLop.Size = new System.Drawing.Size(818, 271);
+            this.lvThongTinLop.TabIndex = 0;
+            this.lvThongTinLop.UseCompatibleStateImageBehavior = false;
+            this.lvThongTinLop.View = System.Windows.Forms.View.Details;
+            this.lvThongTinLop.DoubleClick += new System.EventHandler(this.lvThongTinLop_DoubleClick);
             // 
             // columnHeader1
             // 
@@ -187,20 +208,21 @@
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader3.Width = 215;
             // 
-            // button2
+            // btnClear
             // 
-            this.button2.BackColor = System.Drawing.Color.Lime;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(455, 196);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(149, 47);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Clear";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnClear.BackColor = System.Drawing.Color.Lime;
+            this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClear.FlatAppearance.BorderSize = 0;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.ForeColor = System.Drawing.Color.White;
+            this.btnClear.Location = new System.Drawing.Point(455, 196);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(149, 47);
+            this.btnClear.TabIndex = 7;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnLuu
             // 
@@ -226,6 +248,7 @@
             this.cboNganh.Name = "cboNganh";
             this.cboNganh.Size = new System.Drawing.Size(583, 34);
             this.cboNganh.TabIndex = 1;
+            this.cboNganh.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboNganh_KeyPress);
             // 
             // txtTenLop
             // 
@@ -302,12 +325,12 @@
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.TreeView trvNganh;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button Xóa;
-        private System.Windows.Forms.ListView lvThongTinSV;
+        private System.Windows.Forms.Button btnXoa;
+        private System.Windows.Forms.ListView lvThongTinLop;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnLuu;
         private System.Windows.Forms.ComboBox cboNganh;
         private System.Windows.Forms.TextBox txtTenLop;
@@ -315,5 +338,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSua;
     }
 }

@@ -41,15 +41,119 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            if (xuLyLuu())
+            {
+                MessageBox.Show("Thêm Ngành thành công!", "Thành công",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                hienThiLenListViewNganh();
+            }
+        }
+
+        private bool xuLyLuu()
+        {
+            //Validation
+            string contentValidation = "";
+            Validation validation = new Validation();
+            contentValidation += validation.kiemTraRong("Mã ngành", txtMaNganh);
+            //Xử lý MSSV trùng
+            if (contentValidation == "")
+            {
+                LinkedList<Nganh>.Node nodeNganh = CSDL_Nganh.pHead;
+                while (nodeNganh != null)
+                {
+                    if (nodeNganh.data.MsNganh == txtMaNganh.Text)
+                    {
+                        contentValidation += "Mã Ngành đã tồn tại\n";
+                        break;
+                    }
+                    nodeNganh = nodeNganh.pNext;
+                }
+            }
+            contentValidation += validation.kiemTraChuoi("Tên ngành", txtTenNganh);
+
+            if (contentValidation != "")
+            {
+                MessageBox.Show(contentValidation, "Validation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             Nganh nganh = new Nganh();
 
             nganh.MsNganh = txtMaNganh.Text;
             nganh.TenNganh = txtTenNganh.Text;
 
             CSDL_Nganh.Add(nganh);
-            MessageBox.Show("Thêm Ngành thành công!", "Thành công",
+            return true;
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (lvThongTinNganh.SelectedItems.Count > 0)
+            {
+                for (int i = 0; i < lvThongTinNganh.SelectedItems.Count; i++)
+                {
+                    xuLyXoa(lvThongTinNganh.SelectedItems[i].SubItems[0].Text);
+                }
+                MessageBox.Show("Xóa Thành Công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                hienThiLenListViewNganh();
+            }
+        }
+
+        private void xuLyXoa(string maNganhDel)
+        {
+            LinkedList<Nganh>.Node nodeNganh = CSDL_Nganh.pHead;
+
+            while (nodeNganh != null)
+            {
+                if (nodeNganh.data.MsNganh == maNganhDel)
+                {
+                    CSDL_Nganh.Remove(nodeNganh);
+                    break;
+                }
+                nodeNganh = nodeNganh.pNext;
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            xuLyXoa(txtMaNganh.Text);
+
+            if (xuLyLuu())
+            {
+                MessageBox.Show("Sửa Ngành thành công!", "Thành công",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             hienThiLenListViewNganh();
+        }
+
+        private void lvThongTinNganh_DoubleClick(object sender, EventArgs e)
+        {
+            btnLuu.Enabled = false;
+            btnXoa.Enabled = false;
+            btnSua.Enabled = true;
+
+            var index = lvThongTinNganh.FocusedItem.Index;
+            var nganh = lvThongTinNganh.Items[index];
+
+            txtMaNganh.Text = nganh.SubItems[0].Text;
+            txtMaNganh.Enabled = false;
+            txtTenNganh.Text = nganh.SubItems[1].Text;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            xuLyClear();
+        }
+
+        private void xuLyClear()
+        {
+            btnLuu.Enabled = true;
+            btnXoa.Enabled = true;
+            btnSua.Enabled = false;
+
+            txtMaNganh.Text = "";
+            txtMaNganh.Enabled = true;
+            txtTenNganh.Text = "";
         }
     }
 }

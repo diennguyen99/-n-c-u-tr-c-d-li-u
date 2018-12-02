@@ -96,6 +96,7 @@
     <Compile Include="UserControls\TimKiemSinhVienUC.Designer.cs">
       <DependentUpon>TimKiemSinhVienUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Validation.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

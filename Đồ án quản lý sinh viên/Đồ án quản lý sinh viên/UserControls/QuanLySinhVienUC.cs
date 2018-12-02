@@ -77,7 +77,51 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
-        { 
+        {
+
+            if (xuLyLuu())
+            {
+                MessageBox.Show("Lưu Thành công!", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                hienThiDuLieuLenListView();
+                xuLyClear();
+            }
+        }
+        // Xử lý Lưu
+        private bool xuLyLuu()
+        {
+            //Validation
+            string contentValidation = "";
+            Validation validation = new Validation();
+            contentValidation += validation.kiemTraSo("MSSV", txtMSSV);
+            //Xử lý MSSV trùng
+            if(contentValidation == "")
+            {
+                LinkedList<SinhVien>.Node nodeSV = CSDL_SV.pHead;
+                while (nodeSV != null)
+                {
+                    if(nodeSV.data.MSSV == Int32.Parse(txtMSSV.Text))
+                    {
+                        contentValidation += "MSSV đã tồn tại\n";
+                        break;
+                    }
+                    nodeSV = nodeSV.pNext;
+                }
+            }
+            contentValidation += validation.kiemTraChuoi("Tên SV", txtTenSV);
+            contentValidation += validation.kiemTraRadio(radNam, radNu);
+            contentValidation += validation.kiemTraDate(txtNgaySinh, txtThangSinh, txtNamSinh);
+            contentValidation += validation.kiemTraComboBox("Ngành", cboNganh);
+            contentValidation += validation.kiemTraComboBox("Lớp", cboLop);
+            contentValidation += validation.kiemTraDiem("Điểm Toán", txtDiemToan);
+            contentValidation += validation.kiemTraDiem("Điểm Lý", txtDiemLy);
+            contentValidation += validation.kiemTraDiem("Điểm Hóa", txtDiemHoa);
+            if (contentValidation != "")
+            {
+                MessageBox.Show(contentValidation, "Validation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+
             SinhVien sv = new SinhVien();
             LinkedList<Nganh>.Node nodeNganh = CSDL_Nganh.pHead;
 
@@ -92,7 +136,7 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             string nganh = this.cboNganh.GetItemText(this.cboNganh.SelectedItem);
             while (nodeNganh != null)
             {
-                if(nodeNganh.data.TenNganh == nganh)
+                if (nodeNganh.data.TenNganh == nganh)
                 {
                     break;
                 }
@@ -118,7 +162,7 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             sv.DiemHoa = Convert.ToDouble(txtDiemHoa.Text);
 
             CSDL_SV.Add(sv);
-            hienThiDuLieuLenListView();
+            return true;
         }
 
         private void hienThiDuLieuLenListView()
@@ -134,66 +178,64 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
                 string gioiTinh = nodeSV.data.GioiTinh == true ? "Nam" : "Nữ";
                 lviSV.SubItems.Add(gioiTinh);
                 lviSV.SubItems.Add(nodeSV.data.NgSinh.ToString("dd/MM/yyyy"));
-
-                lviSV.SubItems.Add(nodeSV.data.LopChuQuan.NganhChuQuan.TenNganh);
-                lviSV.SubItems.Add(nodeSV.data.LopChuQuan.TenLopHoc);
+                lviSV.SubItems.Add(nodeSV.data.DiemHoa.ToString());
+                lviSV.SubItems.Add(nodeSV.data.DiemLy.ToString());
+                lviSV.SubItems.Add(nodeSV.data.DiemHoa.ToString());
                 lviSV.SubItems.Add(Convert.ToString(Math.Round(nodeSV.data.diemTrungBinh(), 3)));
-
+                lviSV.SubItems.Add(nodeSV.data.LopChuQuan.TenLopHoc);
+                lviSV.SubItems.Add(nodeSV.data.LopChuQuan.NganhChuQuan.TenNganh);
+                
                 lvThongTinSV.Items.Add(lviSV);
                 nodeSV = nodeSV.pNext;
             }
         }
-        private void QuanLySinhVienUC_Load(object sender, EventArgs e)
-        {
-        }
-        //Khi click vao list view
-        private void lvThongTinSV_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lvThongTinSV.SelectedItems.Count > 0)
-            {
-                btnXoa.Enabled = true;
-                btnXoa.BackColor = Color.Red;
-                btnXoa.ForeColor = Color.White;
-            }
-            else
-            {
-                btnXoa.Enabled = false;
-                btnXoa.BackColor = Color.Red;
-                btnXoa.ForeColor = Color.Red;
-                lvThongTinSV.FullRowSelect = true;
-            }
-        }
-
         // Khi click XOA
         private void btnXoa_Click(object sender, EventArgs e)
         {
+
             if (lvThongTinSV.SelectedItems.Count > 0)
             {
-                ListViewItem lvChonSV = lvThongTinSV.SelectedItems[0];
-                int mssDel = Convert.ToInt32(lvChonSV.SubItems[0].Text);
-               
-                LinkedList<SinhVien>.Node nodeSV = CSDL_SV.pHead;
-                //Dua vao mssv tim node sinh vien can xoa
-                while (nodeSV!=null)
-                {
-                    if(nodeSV.data.MSSV == mssDel)
-                    {
-                        //Hoi co muon XOA khong?
-                        DialogResult chonXoa = MessageBox.Show("Bạn có chắc muốn xóa sinh viên " + nodeSV.data.TenSV,
+                //Hoi co muon XOA khong?
+                DialogResult chonXoa = MessageBox.Show("Bạn có chắc muốn xóa ?",
                                                                 "Xóa",
                                                                 MessageBoxButtons.YesNo,
                                                                 MessageBoxIcon.Question);
-                        // Neu Chon XOA thi xu ly
-                        if(chonXoa == DialogResult.Yes)
-                        {
-                            
-                            CSDL_SV.Remove(nodeSV);
-                            MessageBox.Show("Xóa thanh công!", "Xóa",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information);
-                        }
+
+                // Neu Chon XOA thi xu ly
+                if (chonXoa == DialogResult.Yes)
+                {
+                    for (int i = 0; i < lvThongTinSV.SelectedItems.Count; i++)
+                    {
+                        ListViewItem item = lvThongTinSV.SelectedItems[i];
+                        xuLyXoa(Convert.ToInt32(item.SubItems[0].Text));
+                    }
+                    MessageBox.Show("Xóa thanh công!", "Xóa",
+                                       MessageBoxButtons.OK,
+                                       MessageBoxIcon.Information);
+                    btnXoa.Enabled = false;
+                    btnXoa.BackColor = Color.Gray;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            hienThiDuLieuLenListView();
+        }
+        //Xử lý thao tác xóa
+        private void xuLyXoa(int mssDel) {
+            if (lvThongTinSV.SelectedItems.Count > 0)
+            {
+                LinkedList<SinhVien>.Node nodeSV = CSDL_SV.pHead;
+                //Dua vao mssv tim node sinh vien can xoa
+                while (nodeSV != null)
+                {
+                    if (nodeSV.data.MSSV == mssDel)
+                    {
+                       
+                        CSDL_SV.Remove(nodeSV);
                         //Dung khong duyet nua
-                        break; 
+                        break;
                     }
                     nodeSV = nodeSV.pNext;
                 }
@@ -201,8 +243,8 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
                 //Xoa SV trong danh sach lop
                 LinkedList<LopHoc>.Node nodeLopHoc = CSDL_Lop.pHead;
-                
-                while(nodeLopHoc != null)
+
+                while (nodeLopHoc != null)
                 {
                     if (nodeLopHoc.data.MsLopHoc == nodeSV.data.LopChuQuan.MsLopHoc)
                     {
@@ -220,15 +262,95 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
                     }
                     nodeLopHoc = nodeLopHoc.pNext;
                 }
-                hienThiDuLieuLenListView();
             }
         }
 
-        private void QuanLySinhVienUC_Click(object sender, EventArgs e)
+        //Khi Click Sửa
+        private void btnSua_Click(object sender, EventArgs e)
         {
+            xuLyXoa(Int32.Parse(txtMSSV.Text));
+            if (xuLyLuu())
+            {
+                MessageBox.Show("Sửa Thành Công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                hienThiDuLieuLenListView();
+                xuLyClear();
+            }
+        }
+
+        // Khi double click vao item list view thì đổ dữ liệu lên
+        private void lvThongTinSV_DoubleClick(object sender, EventArgs e)
+        {
+            btnLuu.Enabled = false;
             btnXoa.Enabled = false;
-            btnXoa.BackColor = Color.Gray;
-            //lvThongTinSV.SelectedItems[0].Selected = false;
+            btnSua.Enabled = true;
+
+            var index = lvThongTinSV.FocusedItem.Index;
+
+            var sv = lvThongTinSV.Items[index];
+
+            txtMSSV.Text = sv.SubItems[0].Text;
+            txtTenSV.Text = sv.SubItems[1].Text;
+            if(sv.SubItems[2].Text == "Nam")
+            {
+                radNam.Checked = true;
+            }else
+            {
+                radNu.Checked = true;
+            }
+
+            //Cat chuoi thanh ngay thang nam sinh
+            var date = sv.SubItems[3].Text.Split('/');
+            
+            txtNgaySinh.Text = date[0];
+            txtThangSinh.Text = date[1];
+            txtNamSinh.Text = date[2];
+
+            txtDiemToan.Text = sv.SubItems[4].Text;
+            txtDiemLy.Text = sv.SubItems[5].Text;
+            txtDiemHoa.Text = sv.SubItems[6].Text;
+
+            cboNganh.Text = sv.SubItems[9].Text;
+            cboLop.Text = sv.SubItems[8].Text;
+
+            txtMSSV.Enabled = false;
+        }
+        //Click Clear
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            xuLyClear();
+        }
+
+        private void xuLyClear()
+        {
+            btnLuu.Enabled = true;
+            btnXoa.Enabled = true;
+            btnSua.Enabled = false;
+
+            txtMSSV.Enabled = true;
+            txtMSSV.Text = "";
+            txtTenSV.Text = "";
+            radNam.Checked = false;
+            radNu.Checked = false;
+            txtNgaySinh.Text = "";
+            txtThangSinh.Text = "";
+            txtNamSinh.Text = "";
+            cboNganh.Text = "     ---------------------- Lựa chọn Ngành ---------------------";
+            cboLop.Text = "     ----------------------- Lựa chọn Lớp -----------------------";
+            txtDiemToan.Text = "";
+            txtDiemLy.Text = "";
+            txtDiemHoa.Text = "";
+        }
+
+        private void cboNganh_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void cboLop_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
+
+   
 }
