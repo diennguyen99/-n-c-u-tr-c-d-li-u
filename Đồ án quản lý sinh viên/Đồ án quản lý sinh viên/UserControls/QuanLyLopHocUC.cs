@@ -131,8 +131,8 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             lop.MsLopHoc = txtMaLop.Text;
             lop.TenLopHoc = txtTenLop.Text;
 
-            CSDL_Lop.Add(lop);
-            nodeNganh.data.DsLop.Add(lop);
+            CSDL_Lop.Add(lop, lop.MsLopHoc);
+            nodeNganh.data.DsLop.Add(lop, lop.MsLopHoc);
 
             return true;
         }
@@ -141,37 +141,11 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             LinkedList<Nganh>.Node nodeNganh = CSDL_Nganh.pHead;
             LinkedList<LopHoc>.Node nodeLop = CSDL_Lop.pHead;
 
-            string tenNganh = "";
+            nodeLop = CSDL_Lop.Search(maLopHocDel);
+            CSDL_Lop.Remove(maLopHocDel);
 
-            while (nodeLop != null)
-            {
-                if (nodeLop.data.MsLopHoc == maLopHocDel)
-                {
-                    tenNganh = nodeLop.data.NganhChuQuan.TenNganh;
-                    CSDL_Lop.Remove(nodeLop);
-                    break;
-                }
-                nodeLop = nodeLop.pNext;
-            }
-
-            while (nodeNganh != null)
-            {
-                if (nodeNganh.data.TenNganh == tenNganh)
-                {
-                    LinkedList<LopHoc>.Node nodeDsLop = nodeNganh.data.DsLop.pHead;
-                    while (nodeDsLop != null)
-                    {
-                        if (nodeDsLop.data.MsLopHoc == maLopHocDel)
-                        {
-                            nodeNganh.data.DsLop.Remove(nodeDsLop);
-                            break;
-                        }
-                        nodeDsLop = nodeDsLop.pNext;
-                    }
-                    break;
-                }
-                nodeNganh = nodeNganh.pNext;
-            }
+            nodeNganh = CSDL_Nganh.Search(nodeLop.data.NganhChuQuan.MsNganh);
+            nodeNganh.data.DsLop.Remove(maLopHocDel);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -205,9 +179,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
         // Khi Double Click
         private void lvThongTinLop_DoubleClick(object sender, EventArgs e)
         {
-            btnLuu.Enabled = false;
-            btnXoa.Enabled = false;
-            btnSua.Enabled = true;
+            btnLuu.Visible = false;
+            btnXoa.Visible = false;
+            btnSua.Visible = true;
 
             var index = lvThongTinLop.FocusedItem.Index;
 
@@ -226,9 +200,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
         private void xuLyClear()
         {
-            btnLuu.Enabled = true;
-            btnXoa.Enabled = true;
-            btnSua.Enabled = false;
+            btnLuu.Visible = true;
+            btnXoa.Visible = true;
+            btnSua.Visible = false;
 
             cboNganh.Text = "    -------------------------------- Lựa chọn Ngành --------------------------------";
             txtMaLop.Text = "";

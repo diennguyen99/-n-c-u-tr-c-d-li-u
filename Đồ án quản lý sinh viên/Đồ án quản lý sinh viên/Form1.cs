@@ -46,13 +46,14 @@ namespace Đồ_án_quản_lý_sinh_viên
             sv2.GioiTinh = true;
             sv2.LopChuQuan = lopCNTTCL1;
 
-            nganhCntt.DsLop.Add(lopCNTTCL1);
+            nganhCntt.DsLop.Add(lopCNTTCL1, lopCNTTCL1.MsLopHoc);
 
-            CSDL_Lop.Add(lopCNTTCL1);
-            CSDL_Nganh.Add(nganhCntt);
+            CSDL_Lop.Add(lopCNTTCL1, lopCNTTCL1.MsLopHoc);
+            CSDL_Nganh.Add(nganhCntt, nganhCntt.MsNganh);
 
-            lopCNTTCL1.DsSVLop.Add(sv2);
-            CSDL_SV.Add(sv2);
+            lopCNTTCL1.DsSVLop.Add(sv2, sv2.MSSV.ToString());
+            
+            CSDL_SV.Add(sv2, sv2.MSSV.ToString());
 
             //SinhVien sv1 = new SinhVien();
             //sv1.MSSV = 1711;
@@ -79,11 +80,11 @@ namespace Đồ_án_quản_lý_sinh_viên
             sv1.GioiTinh = true;
             sv1.LopChuQuan = lopCoKhi1;
 
-            CoKhi.DsLop.Add(lopCoKhi1);
-            CSDL_Nganh.Add(CoKhi);
-            lopCoKhi1.DsSVLop.Add(sv1);
-            CSDL_Lop.Add(lopCoKhi1);
-            CSDL_SV.Add(sv1);
+            CoKhi.DsLop.Add(lopCoKhi1, lopCNTTCL1.MsLopHoc);
+            CSDL_Nganh.Add(CoKhi, CoKhi.MsNganh);
+            lopCoKhi1.DsSVLop.Add(sv1, sv1.MSSV.ToString());
+            CSDL_Lop.Add(lopCoKhi1, lopCoKhi1.MsLopHoc);
+            CSDL_SV.Add(sv1, sv1.MSSV.ToString());
         }
 
         private void btnGioiThieu_Click(object sender, EventArgs e)
@@ -144,6 +145,10 @@ namespace Đồ_án_quản_lý_sinh_viên
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
+            panelClick.Height = btnXuatExcel.Height;
+            panelClick.Top = btnXuatExcel.Top;
+            labelTitle.Text = "Xuất File Excel";
+
             string filePath = "";
             // tạo SaveFileDialog để lưu file excel
             SaveFileDialog dialog = new SaveFileDialog();

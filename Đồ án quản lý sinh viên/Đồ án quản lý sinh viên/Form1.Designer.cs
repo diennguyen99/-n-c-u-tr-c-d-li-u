@@ -30,9 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnXuatExcel = new System.Windows.Forms.Button();
+            this.btnTimKiemSV = new System.Windows.Forms.Button();
             this.btnQLNganh = new System.Windows.Forms.Button();
             this.btnQLLopHoc = new System.Windows.Forms.Button();
-            this.panelClick = new System.Windows.Forms.Panel();
             this.btQLSV = new System.Windows.Forms.Button();
             this.btnGioiThieu = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -41,13 +42,12 @@
             this.pictureClose = new System.Windows.Forms.PictureBox();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panelConatainer = new System.Windows.Forms.Panel();
-            this.btnTimKiemSV = new System.Windows.Forms.Button();
             this.timKiemSinhVienUC1 = new Đồ_án_quản_lý_sinh_viên.UserControls.TimKiemSinhVienUC();
             this.quanLyNganhUC1 = new Đồ_án_quản_lý_sinh_viên.UserControls.QuanLyNganhUC();
             this.quanLyLopHocUC1 = new Đồ_án_quản_lý_sinh_viên.UserControls.QuanLyLopHocUC();
             this.quanLySinhVienUC1 = new Đồ_án_quản_lý_sinh_viên.UserControls.QuanLySinhVienUC();
             this.gioiThieuUC1 = new Đồ_án_quản_lý_sinh_viên.UserControls.GioiThieuUC();
-            this.btnXuatExcel = new System.Windows.Forms.Button();
+            this.panelClick = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -59,11 +59,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(25)))), ((int)(((byte)(150)))));
+            this.panel1.Controls.Add(this.panelClick);
             this.panel1.Controls.Add(this.btnXuatExcel);
             this.panel1.Controls.Add(this.btnTimKiemSV);
             this.panel1.Controls.Add(this.btnQLNganh);
             this.panel1.Controls.Add(this.btnQLLopHoc);
-            this.panel1.Controls.Add(this.panelClick);
             this.panel1.Controls.Add(this.btQLSV);
             this.panel1.Controls.Add(this.btnGioiThieu);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -71,6 +71,34 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(263, 727);
             this.panel1.TabIndex = 0;
+            // 
+            // btnXuatExcel
+            // 
+            this.btnXuatExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXuatExcel.FlatAppearance.BorderSize = 0;
+            this.btnXuatExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXuatExcel.ForeColor = System.Drawing.Color.White;
+            this.btnXuatExcel.Location = new System.Drawing.Point(0, 505);
+            this.btnXuatExcel.Name = "btnXuatExcel";
+            this.btnXuatExcel.Size = new System.Drawing.Size(263, 60);
+            this.btnXuatExcel.TabIndex = 6;
+            this.btnXuatExcel.Text = "Xuất file Excel";
+            this.btnXuatExcel.UseVisualStyleBackColor = true;
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
+            // 
+            // btnTimKiemSV
+            // 
+            this.btnTimKiemSV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTimKiemSV.FlatAppearance.BorderSize = 0;
+            this.btnTimKiemSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTimKiemSV.ForeColor = System.Drawing.Color.White;
+            this.btnTimKiemSV.Location = new System.Drawing.Point(0, 439);
+            this.btnTimKiemSV.Name = "btnTimKiemSV";
+            this.btnTimKiemSV.Size = new System.Drawing.Size(263, 60);
+            this.btnTimKiemSV.TabIndex = 5;
+            this.btnTimKiemSV.Text = "Tìm kiếm sinh viên";
+            this.btnTimKiemSV.UseVisualStyleBackColor = true;
+            this.btnTimKiemSV.Click += new System.EventHandler(this.btnTimKiemSV_Click);
             // 
             // btnQLNganh
             // 
@@ -99,14 +127,6 @@
             this.btnQLLopHoc.Text = "Quản lý lớp học";
             this.btnQLLopHoc.UseVisualStyleBackColor = true;
             this.btnQLLopHoc.Click += new System.EventHandler(this.btnQLLopHoc_Click);
-            // 
-            // panelClick
-            // 
-            this.panelClick.BackColor = System.Drawing.Color.White;
-            this.panelClick.Location = new System.Drawing.Point(0, 175);
-            this.panelClick.Name = "panelClick";
-            this.panelClick.Size = new System.Drawing.Size(13, 60);
-            this.panelClick.TabIndex = 2;
             // 
             // btQLSV
             // 
@@ -200,20 +220,6 @@
             this.panelConatainer.Size = new System.Drawing.Size(1143, 645);
             this.panelConatainer.TabIndex = 1;
             // 
-            // btnTimKiemSV
-            // 
-            this.btnTimKiemSV.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTimKiemSV.FlatAppearance.BorderSize = 0;
-            this.btnTimKiemSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTimKiemSV.ForeColor = System.Drawing.Color.White;
-            this.btnTimKiemSV.Location = new System.Drawing.Point(0, 439);
-            this.btnTimKiemSV.Name = "btnTimKiemSV";
-            this.btnTimKiemSV.Size = new System.Drawing.Size(263, 60);
-            this.btnTimKiemSV.TabIndex = 5;
-            this.btnTimKiemSV.Text = "Tìm kiếm sinh viên";
-            this.btnTimKiemSV.UseVisualStyleBackColor = true;
-            this.btnTimKiemSV.Click += new System.EventHandler(this.btnTimKiemSV_Click);
-            // 
             // timKiemSinhVienUC1
             // 
             this.timKiemSinhVienUC1.BackColor = System.Drawing.Color.White;
@@ -263,19 +269,13 @@
             this.gioiThieuUC1.Size = new System.Drawing.Size(1143, 645);
             this.gioiThieuUC1.TabIndex = 0;
             // 
-            // btnXuatExcel
+            // panelClick
             // 
-            this.btnXuatExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnXuatExcel.FlatAppearance.BorderSize = 0;
-            this.btnXuatExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXuatExcel.ForeColor = System.Drawing.Color.White;
-            this.btnXuatExcel.Location = new System.Drawing.Point(0, 505);
-            this.btnXuatExcel.Name = "btnXuatExcel";
-            this.btnXuatExcel.Size = new System.Drawing.Size(263, 60);
-            this.btnXuatExcel.TabIndex = 6;
-            this.btnXuatExcel.Text = "Xuất file Excel";
-            this.btnXuatExcel.UseVisualStyleBackColor = true;
-            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
+            this.panelClick.BackColor = System.Drawing.Color.White;
+            this.panelClick.Location = new System.Drawing.Point(0, 175);
+            this.panelClick.Name = "panelClick";
+            this.panelClick.Size = new System.Drawing.Size(13, 60);
+            this.panelClick.TabIndex = 3;
             // 
             // Form1
             // 
@@ -314,7 +314,6 @@
         private UserControls.QuanLySinhVienUC quanLySinhVienUC1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureClose;
-        private System.Windows.Forms.Panel panelClick;
         private System.Windows.Forms.Button btnQLLopHoc;
         private UserControls.QuanLyLopHocUC quanLyLopHocUC1;
         private System.Windows.Forms.Button btnQLNganh;
@@ -322,6 +321,7 @@
         private System.Windows.Forms.Button btnTimKiemSV;
         private UserControls.TimKiemSinhVienUC timKiemSinhVienUC1;
         private System.Windows.Forms.Button btnXuatExcel;
+        private System.Windows.Forms.Panel panelClick;
     }
 }
 

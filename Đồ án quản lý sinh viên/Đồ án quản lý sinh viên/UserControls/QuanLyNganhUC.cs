@@ -58,15 +58,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             //Xử lý MSSV trùng
             if (contentValidation == "")
             {
-                LinkedList<Nganh>.Node nodeNganh = CSDL_Nganh.pHead;
-                while (nodeNganh != null)
+                if (CSDL_Nganh.Search(txtMaNganh.Text) != null)
                 {
-                    if (nodeNganh.data.MsNganh == txtMaNganh.Text)
-                    {
-                        contentValidation += "Mã Ngành đã tồn tại\n";
-                        break;
-                    }
-                    nodeNganh = nodeNganh.pNext;
+                    contentValidation += "Mã Ngành đã tồn tại\n";
                 }
             }
             contentValidation += validation.kiemTraChuoi("Tên ngành", txtTenNganh);
@@ -77,12 +71,13 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
                 return false;
             }
 
+            //Bắt đâu lấy dữ liệu xử lý lưu
             Nganh nganh = new Nganh();
 
             nganh.MsNganh = txtMaNganh.Text;
             nganh.TenNganh = txtTenNganh.Text;
 
-            CSDL_Nganh.Add(nganh);
+            CSDL_Nganh.Add(nganh, nganh.MsNganh);
             return true;
         }
 
@@ -101,17 +96,7 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
         private void xuLyXoa(string maNganhDel)
         {
-            LinkedList<Nganh>.Node nodeNganh = CSDL_Nganh.pHead;
-
-            while (nodeNganh != null)
-            {
-                if (nodeNganh.data.MsNganh == maNganhDel)
-                {
-                    CSDL_Nganh.Remove(nodeNganh);
-                    break;
-                }
-                nodeNganh = nodeNganh.pNext;
-            }
+            CSDL_Nganh.Remove(maNganhDel);
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -128,9 +113,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
         private void lvThongTinNganh_DoubleClick(object sender, EventArgs e)
         {
-            btnLuu.Enabled = false;
-            btnXoa.Enabled = false;
-            btnSua.Enabled = true;
+            btnLuu.Visible = false;
+            btnXoa.Visible = false;
+            btnSua.Visible = true;
 
             var index = lvThongTinNganh.FocusedItem.Index;
             var nganh = lvThongTinNganh.Items[index];
@@ -147,9 +132,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
         private void xuLyClear()
         {
-            btnLuu.Enabled = true;
-            btnXoa.Enabled = true;
-            btnSua.Enabled = false;
+            btnLuu.Visible = true;
+            btnXoa.Visible = true;
+            btnSua.Visible = false;
 
             txtMaNganh.Text = "";
             txtMaNganh.Enabled = true;
