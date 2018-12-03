@@ -133,7 +133,7 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
                                      Convert.ToInt32(txtThangSinh.Text),
                                      Convert.ToInt32(txtNgaySinh.Text));
 
-            string nganh = this.cboNganh.GetItemText(this.cboNganh.SelectedItem);
+            string nganh = cboNganh.SelectedItem.ToString();
             while (nodeNganh != null)
             {
                 if (nodeNganh.data.TenNganh == nganh)
@@ -144,14 +144,15 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             }
 
             LinkedList<LopHoc>.Node nodeLop = nodeNganh.data.DsLop.pHead;
-            string lop = this.cboLop.GetItemText(this.cboLop.SelectedItem);
 
+            string lop = cboLop.SelectedItem.ToString();
+            
             while (nodeLop != null)
             {
                 if (nodeLop.data.TenLopHoc == lop)
                 {
                     sv.LopChuQuan = nodeLop.data;
-                    nodeLop.data.DsSVLop.Add(sv);
+                    nodeLop.data.DsSVLop.Add(sv, sv.MSSV.ToString());
                     break;
                 }
                 nodeLop = nodeLop.pNext;
@@ -161,7 +162,7 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
             sv.DiemLy = Convert.ToDouble(txtDiemLy.Text);
             sv.DiemHoa = Convert.ToDouble(txtDiemHoa.Text);
 
-            CSDL_SV.Add(sv);
+            CSDL_SV.Add(sv, sv.MSSV.ToString());
             return true;
         }
 
@@ -212,8 +213,6 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
                     MessageBox.Show("Xóa thanh công!", "Xóa",
                                        MessageBoxButtons.OK,
                                        MessageBoxIcon.Information);
-                    btnXoa.Enabled = false;
-                    btnXoa.BackColor = Color.Gray;
                 }
                 else
                 {
@@ -224,45 +223,14 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
         }
         //Xử lý thao tác xóa
         private void xuLyXoa(int mssDel) {
-            if (lvThongTinSV.SelectedItems.Count > 0)
-            {
-                LinkedList<SinhVien>.Node nodeSV = CSDL_SV.pHead;
-                //Dua vao mssv tim node sinh vien can xoa
-                while (nodeSV != null)
-                {
-                    if (nodeSV.data.MSSV == mssDel)
-                    {
-                       
-                        CSDL_SV.Remove(nodeSV);
-                        //Dung khong duyet nua
-                        break;
-                    }
-                    nodeSV = nodeSV.pNext;
-                }
+            LinkedList<SinhVien>.Node nodeSV;
+            nodeSV = CSDL_SV.Search(mssDel.ToString());
+            CSDL_SV.Remove(mssDel.ToString());
 
 
-                //Xoa SV trong danh sach lop
-                LinkedList<LopHoc>.Node nodeLopHoc = CSDL_Lop.pHead;
-
-                while (nodeLopHoc != null)
-                {
-                    if (nodeLopHoc.data.MsLopHoc == nodeSV.data.LopChuQuan.MsLopHoc)
-                    {
-                        LinkedList<SinhVien>.Node nodeSvLop = nodeLopHoc.data.DsSVLop.pHead;
-                        while (nodeSvLop != null)
-                        {
-                            if (nodeSvLop.data.MSSV == nodeSV.data.MSSV)
-                            {
-                                nodeLopHoc.data.DsSVLop.Remove(nodeSvLop);
-                                break;
-                            }
-                            nodeSvLop = nodeSvLop.pNext;
-                        }
-                        break;
-                    }
-                    nodeLopHoc = nodeLopHoc.pNext;
-                }
-            }
+            LinkedList<LopHoc>.Node nodeLopHoc;
+            nodeLopHoc = CSDL_Lop.Search(nodeSV.data.LopChuQuan.MsLopHoc);
+            nodeLopHoc.data.DsSVLop.Remove(mssDel.ToString());
         }
 
         //Khi Click Sửa
@@ -280,9 +248,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
         // Khi double click vao item list view thì đổ dữ liệu lên
         private void lvThongTinSV_DoubleClick(object sender, EventArgs e)
         {
-            btnLuu.Enabled = false;
-            btnXoa.Enabled = false;
-            btnSua.Enabled = true;
+            btnLuu.Visible = false;
+            btnXoa.Visible = false;
+            btnSua.Visible = true;
 
             var index = lvThongTinSV.FocusedItem.Index;
 
@@ -322,9 +290,9 @@ namespace Đồ_án_quản_lý_sinh_viên.UserControls
 
         private void xuLyClear()
         {
-            btnLuu.Enabled = true;
-            btnXoa.Enabled = true;
-            btnSua.Enabled = false;
+            btnLuu.Visible = true;
+            btnXoa.Visible = true;
+            btnSua.Visible = false;
 
             txtMSSV.Enabled = true;
             txtMSSV.Text = "";

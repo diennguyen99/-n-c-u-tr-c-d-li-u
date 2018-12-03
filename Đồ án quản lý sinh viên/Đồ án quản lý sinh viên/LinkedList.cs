@@ -10,6 +10,7 @@ namespace Đồ_án_quản_lý_sinh_viên
     {
         public class Node
         {
+            public string key;
             public T data;
             public Node pNext;
         }
@@ -24,20 +25,33 @@ namespace Đồ_án_quản_lý_sinh_viên
             count = 0;
         }
 
-        Node CreateNode(T info)
+        Node CreateNode(T info, string key)
         {
             Node pNode = new Node();
             if (pNode != null)
             {
+                pNode.key = key;
                 pNode.data = info;
                 pNode.pNext = null;
             }
             return pNode;
         }
 
-        public void Add(T info)
+        Node CreateNode(T info)
         {
-            Node pNode = CreateNode(info);
+            Node pNode = new Node();
+            if (pNode != null)
+            {
+                
+                pNode.data = info;
+                pNode.pNext = null;
+            }
+            return pNode;
+        }
+
+        public void Add(T info, string key)
+        {
+            Node pNode = CreateNode(info, key);
             if (pHead == null)
             {
                 pHead = pTail = pNode;
@@ -51,14 +65,14 @@ namespace Đồ_án_quản_lý_sinh_viên
             count++;
         }
 
-        public void Remove(Node pSearch)
+        public void Remove(string key)
         {
             Node pDelete = pHead;
             Node pPre = null;
 
             while (pDelete != null)
             {
-                if (pDelete == pSearch)
+                if (pDelete.key == key)
                     break;
                 pPre = pDelete;
                 pDelete = pDelete.pNext;
@@ -81,21 +95,23 @@ namespace Đồ_án_quản_lý_sinh_viên
                 pDelete.pNext = null;
                 pDelete = null;
             }
-            
+
             count--;
         }
 
-        public IEnumerable<T> Find(Predicate<T> match)
+        public Node Search(string key)
         {
-            LinkedList<T>.Node item = pHead;
-            while (item!=null)
+            Node pTemp = pHead;
+
+            while (pTemp != null)
             {
-                if (match(item.data))
+                if(pTemp.key == key)
                 {
-                    yield return item.data;
+                    return pTemp;
                 }
-                item = item.pNext;
+                pTemp = pTemp.pNext;
             }
+            return null;
         }
     }
 }
